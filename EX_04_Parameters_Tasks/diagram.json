@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "author": "Aluno",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-led", "id": "led_azul", "top": -40, "left": 40, "attrs": { "color": "blue" } },
+    { "type": "wokwi-led", "id": "led_vermelho", "top": -40, "left": 90, "attrs": { "color": "red" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:2", "led_azul:A", "blue", [ "v0" ] ],
+    [ "esp:GND.1", "led_azul:C", "black", [ "v0" ] ],
+    [ "esp:4", "led_vermelho:A", "red", [ "v0" ] ],
+    [ "esp:GND.2", "led_vermelho:C", "black", [ "v0" ] ]
+  ]
+}
