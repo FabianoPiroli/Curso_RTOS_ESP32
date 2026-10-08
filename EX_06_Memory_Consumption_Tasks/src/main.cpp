@@ -84,7 +84,7 @@ void taskBlink(void *pvParameters)
     vTaskDelay(pdMS_TO_TICKS(200));       // Delay de 200ms
 
     uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL); // Obtém o valor do High Water Mark da task atual
-    Serial.print(pcTaskGetName(NULL));
+    Serial.print(pcTaskGetName(NULL)); // Imprime o nome da task atual
     Serial.print(": ");
     Serial.println(uxHighWaterMark); // Imprime o valor do High Water Mark no Serial Monitor
   }
@@ -102,7 +102,7 @@ void task2(void *pvParameters)
     vTaskDelay(pdMS_TO_TICKS(1000));             // Delay de 1 segundo
     
     uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
-    Serial.print(pcTaskGetName(NULL)); // Imprime o nome da task atual
+    Serial.print(pcTaskGetName(NULL)); 
     Serial.print(" : ");
     Serial.println(uxHighWaterMark);
   }
