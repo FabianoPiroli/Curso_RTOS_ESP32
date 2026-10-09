@@ -8,7 +8,7 @@
 #include <freertos/task.h>
 #include <freertos/queue.h>
 
-#define LED 4
+#define LED 2
 
 QueueHandle_t xQueue;
 
@@ -26,7 +26,7 @@ void setup() {
 
   xQueue = xQueueCreate(5, sizeof(int));
 
-  if(xQueue != NULL) {
+  if(xQueue == NULL) {
     Serial.println("Nao foi possivel criar a fila");
 
     while(1);
@@ -34,14 +34,14 @@ void setup() {
 
   xReturned = xTaskCreate(vTask1, "Task1", configMINIMAL_STACK_SIZE + 1024, NULL, 1, &xTask1Handle);
 
-  if(xReturned != pdFAIL) {
+  if(xReturned == pdFAIL) {
     Serial.println("Nao foi possivel criar a task 1");
     while(1);
   }
 
   xReturned = xTaskCreate(vTask2, "Task2", configMINIMAL_STACK_SIZE + 1024, NULL, 1, &xtask2Handle);
 
-  if(xReturned != pdFAIL) {
+  if(xReturned == pdFAIL) {
     Serial.println("Nao foi possivel criar a task 2");
     while(1);
   }
@@ -58,8 +58,6 @@ void vTask1(void *pvParameters) {
   while(1) {
     if(count < 10) {
       xQueueSend(xQueue, &count, portMAX_DELAY);
-      Serial.println("Task 1 enviou: ");
-      Serial.println(count);
       count++;
     }
     else {
@@ -75,8 +73,7 @@ void vTask2(void *pvParameters){
 
   while(1) {
     if(xQueueReceive(xQueue, &value, pdMS_TO_TICKS(1000)) == pdTRUE) {
-      Serial.println("Task 2 recebeu: ");
-      Serial.println(value);
+      Serial.println("Task 2 recebeu: " + String(value));
     }
     else {
       Serial.println("Task 2 nao recebeu nada (TIMEOUT).");
